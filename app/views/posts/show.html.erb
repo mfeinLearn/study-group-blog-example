@@ -9,7 +9,10 @@
   <ul>
     <% @post.comments.each do |comment| %>
       <ol>
-        <li><%= comment.content %></li>
+        <li><%= comment.content %> </li>
+        <% if comment.user == current_user %>
+          <%= button_to "delete", {controller: :comments, action: 'destroy', id: comment.id, comment: { post_id: @post.id } }, :method => :delete %>
+          <% end %>
       </ol>
     <% end %>
   </ul>

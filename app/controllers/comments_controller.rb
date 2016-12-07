@@ -1,9 +1,15 @@
 class CommentsController < ApplicationController
-  before_action :set_post, only: [:create]
+  before_action :set_post, only: [:create, :destroy]
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
     @comment.save
+    redirect_to post_path(@post)
+  end
+
+  def destroy
+    comment = Comment.find_by_id(params[:id])
+    comment.delete
     redirect_to post_path(@post)
   end
 
