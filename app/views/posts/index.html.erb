@@ -1,0 +1,6 @@
+<% @posts.each do |post| %>
+  <div>
+    <h1><%= post.title %></h1>
+    <p><%= post.content.truncate(50) %></p>
+  </div>
+<% end %>
