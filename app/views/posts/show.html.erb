@@ -2,7 +2,7 @@
   <h1>Title: <%= @post.title %></h1>
   <h4>Author: <%= @post.user.email %></h4>
   <p><%= @post.content %></p>
-
+  <%= button_to "Delete Post", { controller: :posts, action: 'destroy', id: @post.id }, method: :delete %>
   <p>
     Comments:
   </p>
@@ -11,8 +11,8 @@
       <ol>
         <li><%= comment.content %> </li>
         <% if comment.user == current_user %>
-          <%= button_to "delete", {controller: :comments, action: 'destroy', id: comment.id, comment: { post_id: @post.id } }, :method => :delete %>
-          <% end %>
+          <%= button_to "x", { controller: :comments, action: 'destroy', id: comment.id, comment: { post_id: @post.id } }, method: :delete %>
+        <% end %>
       </ol>
     <% end %>
   </ul>
