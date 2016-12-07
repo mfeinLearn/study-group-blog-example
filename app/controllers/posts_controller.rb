@@ -1,3 +1,4 @@
+require 'pry'
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
@@ -8,11 +9,12 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @tags = @post.tags.build
   end
 
   def create
     @post = current_user.posts.build(post_params)
-    if @post.save
+    if @post.save!
       redirect_to posts_path
     else
       render 'new'
@@ -20,9 +22,11 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = @post.comments.build
   end
 
   def edit
+    @tags = @post.tags.build
   end
 
   def update
@@ -43,7 +47,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :content)
+      params.require(:post).permit(:title, :content, tag_ids: [], tags_attributes: [:name])
     end
 
 end

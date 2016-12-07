@@ -5,4 +5,6 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
 
   validates :title, :content, presence: true
+
+  accepts_nested_attributes_for :tags, reject_if: proc { |attributes| attributes['name'].blank? }
 end

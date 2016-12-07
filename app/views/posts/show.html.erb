@@ -1,0 +1,22 @@
+<div>
+  <h1>Title: <%= @post.title %></h1>
+  <h4>Author: <%= @post.user.email %></h4>
+  <p><%= @post.content %></p>
+
+  <p>
+    Comments:
+  </p>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <ol>
+        <li><%= comment.content %></li>
+      </ol>
+    <% end %>
+  </ul>
+  <%= form_for @comment do |f| %>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+    <%= f.hidden_field(:post_id) %>
+    <%= f.submit %>
+  <% end %>
+</div>
