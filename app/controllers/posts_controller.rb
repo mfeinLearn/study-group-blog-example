@@ -1,4 +1,3 @@
-require 'pry'
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
@@ -15,7 +14,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save!
-      redirect_to posts_path
+      redirect_to post_path(@post)
     else
       render 'new'
     end
@@ -31,13 +30,15 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to posts_path
+      redirect_to post_path(@post)
     else
       render 'edit'
     end
   end
 
   def destroy
+    @post.destroy
+    redirect_to posts_path
   end
 
   protected
