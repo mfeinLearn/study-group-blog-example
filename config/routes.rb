@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   root 'posts#index'
   resources :posts
   resources :comments, only: [:create, :destroy]
+
+  get 'posts/:id/next', to: 'posts#next'
 end

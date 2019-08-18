@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>BlogApp</title>
+    <h1>Blog App</h1>
+    <li><%= link_to "Posts", posts_path, class: "all_posts" %></li>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +11,22 @@
   </head>
 
   <body>
-    <%= yield %>
+    <!-- we have a div with an id of app-container
+  this is going to be the div that I am going to use
+to redraw my dom / or repaint my dom any time i want something
+to be handled with jquery
+
+no matter if i am refreshing the page and it is being handeled by
+rails
+because I put the yield keyword inside my app container it is still going
+to work
+Weather I am painting the dom via rails or painting it via jquery
+any time I need to paint the dom i would just grab this app-container and
+just add this inject html into that app-container and it is going to replace
+whatever is being yieldd at that point 
+ -->
+    <div id="app-container">
+      <%= yield %>
+    </div>
   </body>
 </html>

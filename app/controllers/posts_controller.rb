@@ -1,9 +1,13 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :next]
 
   def index
     @posts = Post.all
+    respond_to do |f|
+      f.html
+      f.json {render json: @posts}
+    end
   end
 
   def new
@@ -20,8 +24,20 @@ class PostsController < ApplicationController
     end
   end
 
+  def next
+    # it is going to call that instance method
+    # grab the next post set it equal to an instance varible
+    # then render json.
+    @next_post = @post.next
+    render json: @next_post
+  end
+
   def show
     @comment = @post.comments.build
+    respond_to do |f|
+      f.html
+      f.json {render json: @post}
+    end
   end
 
   def edit
